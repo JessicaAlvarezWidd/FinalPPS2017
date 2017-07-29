@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Lista
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div></div>
+  <div *ngFor="let alumno of alumnos">
+      <ion-card>
+        <ion-card-header>{{alumno.nombre}} {{alumno.apellido}} </ion-card-header>
+        <ion-card-content>       
+         Legajo: {{alumno.legajo}}<br>
+         Direccion:{{alumno.calle}} {{alumno.altura}}<br>
+         Email: {{alumno.email}}<br>
+         Curso: {{alumno.descripcion}}<br>
+        </ion-card-content>
+      </ion-card>  
+    </div>
+</ion-content>

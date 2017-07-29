@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar>
+     <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Bienvenido</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>   
+     <ion-card>
+       <ion-card-content>
+       <ion-thumbnail><img id="imageprofile" src="assets/Imagenes/profile-pictures.png"></ion-thumbnail>
+        </ion-card-content>
+        <ion-card-header>{{usuario.nombre}} {{usuario.apellido}} - {{usuario.tipo}} </ion-card-header>
+         <ion-card-content> 
+            <div id="iditem">     
+                <ion-item>          
+                  Legajo
+                  <ion-badge item-end>{{usuario.legajo}}</ion-badge>
+                </ion-item>
+                <ion-item>          
+                  Direccion
+                  <ion-badge item-end>{{usuario.calle}} {{usuario.altura}}</ion-badge>
+                </ion-item>
+                <ion-item>          
+                  Email
+                  <ion-badge item-end >{{usuario.email}}</ion-badge>
+                </ion-item>
+            </div>   
+         </ion-card-content>
+      </ion-card>
+      <ion-card> 
+         <ion-card-header style="color:black !important;">Tu Ubicacion</ion-card-header>          
+    </ion-card> 
+    <div #map id="map"></div>
+</ion-content>

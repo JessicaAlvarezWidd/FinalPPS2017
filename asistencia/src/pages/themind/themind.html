@@ -1,0 +1,68 @@
+<!--
+  Generated template for the Themind page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+     <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Theme</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <!--<h3>Elige tu Estilo!</h3>
+ <button ion-button (click)="changeTheme('')">Default</button>
+ <button ion-button color="dark" (click)="changeTheme('theme-dark')">Dark</button>
+ <button ion-button color="rose" (click)="changeTheme('theme-lady')">Lady</button>
+ <button ion-button color="" (click)="changeTheme('theme-wood')">Wood</button>
+ <button ion-button color="" (click)="changeTheme('theme-stars')">Stars</button>
+ <button ion-button color="" (click)="changeTheme('theme-flower')">Flower</button>
+ <button ion-button color="" (click)="changeTheme('theme-car')">Car</button>-->
+<ion-card>
+ <ion-card-header>Elige tu Estilo!</ion-card-header>
+      <ion-card-content>
+        <ion-list radio-group [(ngModel)]="GrupoRb">
+          <ion-item>
+            <ion-label>Default</ion-label>
+            <ion-radio (ionSelect)="themeElegido()" value="Default"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Dark</ion-label>
+            <ion-radio  (ionSelect)="themeElegido()" value="Dark"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Lady</ion-label>
+            <ion-radio  (ionSelect)="themeElegido()" value="Lady"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Wood</ion-label>
+            <ion-radio  (ionSelect)="themeElegido()" value="Wood"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Stars</ion-label>
+            <ion-radio  (ionSelect)="themeElegido()" value="Stars"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Halloween</ion-label>
+            <ion-radio  (ionSelect)="themeElegido()" value="Flower"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Violet</ion-label>
+            <ion-radio  (ionSelect)="themeElegido()" value="Car"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Crimson</ion-label>
+            <ion-radio  (ionSelect)="themeElegido()" value="Compass"></ion-radio>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+</ion-content>

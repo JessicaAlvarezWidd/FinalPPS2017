@@ -1,0 +1,21 @@
+<ion-content padding>
+  <ion-card> 
+      <ion-card-header>Ingreso</ion-card-header>
+      <ion-card-content>
+        <form (ngSubmit)="Login()">  
+          <ion-item> 
+            <ion-input type="text" [(ngModel)]="usuario.email" name="nombre" placeholder="Correo Electrónico" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input type="password" [(ngModel)]="usuario.password" name="clave" placeholder="Ingrese Clave" required></ion-input>
+          </ion-item>
+          <button ion-button block type="submit">Login</button>
+        </form>
+
+        <button ion-button block type="button" (click)="administrador()">administrador</button>
+        <button ion-button block type="button" (click)="alumno()">alumno</button>
+        <button ion-button block type="button" (click)="profesor()">profesor</button>
+        <button ion-button block type="button" (click)="administrativo()">administrativo</button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

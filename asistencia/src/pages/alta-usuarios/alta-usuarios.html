@@ -1,0 +1,469 @@
+<!--
+  Generated template for the AltaUsuarios page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button  menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title> Alta</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-card *ngIf="mostrarSeleccion">
+      <ion-card-header>Seleccione que desea dar de alta</ion-card-header>
+      <ion-card-content>
+        <ion-list radio-group [(ngModel)]="GrupoRb">
+          <ion-item>
+            <ion-label>Administrativo</ion-label>
+            <ion-radio (ionSelect)="mostrarForm()" value="Administrativo"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Profesor</ion-label>
+            <ion-radio  (ionSelect)="mostrarForm()" value="Profesor"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Alumno</ion-label>
+            <ion-radio  (ionSelect)="mostrarForm()" value="Alumno"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Materia</ion-label>
+            <ion-radio  (ionSelect)="mostrarForm()" value="Materia"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Division</ion-label>
+            <ion-radio  (ionSelect)="mostrarForm()" value="Division"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Comision</ion-label>
+            <ion-radio  (ionSelect)="mostrarForm()" value="Comision"></ion-radio>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+<!-- ----------------------ALTA ADMINISTRATIVO------------------------------- -->
+  <ion-card *ngIf="mostrarFormAdministrativo"> 
+      <ion-card-header>Alta Administrativo</ion-card-header>
+      <ion-card-content>
+          <form [formGroup]="UsuariosForm" (submit)="AltaAdmin()" novalidate>
+            <ion-item>
+              <ion-input #legajo maxlength="4" formControlName="legajo" type="text" (change)="elementChanged(legajo)" (keyup)="verificarLegajo(legajo.value)"
+                placeholder="Legajo" [class.error]="validarlegajo"></ion-input>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="validarlegajo">
+              <p>Ese legajo ya existe</p>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="!UsuariosForm.controls.legajo.valid  && (legajoChanged || submitAttempt)">
+              <p>El legajo debe tener 3 digitos como minimo y solo admite numeros</p>
+            </ion-item>
+            <ion-item>
+              <ion-input #nombre formControlName="nombre" type="text" (change)="elementChanged(nombre)"
+                placeholder="Nombre" [class.invalid]="!UsuariosForm.controls.nombre.valid && (nombreChanged || submitAttempt)"></ion-input>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="UsuariosForm.controls['nombre'].hasError('required')  && (nombreChanged || submitAttempt)">
+              <p>Tu nombre no puede estar vacío</p>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="UsuariosForm.controls['nombre'].hasError('pattern')  && (nombreChanged || submitAttempt)">
+              <p>Solo ingrese letras</p>
+            </ion-item>
+            <ion-item>
+              <ion-input #apellido formControlName="apellido" type="text" (change)="elementChanged(apellido)"
+                placeholder="Apellido" [class.invalid]="!UsuariosForm.controls.apellido.valid && (apellidoChanged || submitAttempt)"></ion-input>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="UsuariosForm.controls['apellido'].hasError('required')  && (apellidoChanged || submitAttempt)">
+              <p>Tu Apellido no puede estar vacío</p>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="UsuariosForm.controls['apellido'].hasError('pattern')  && (apellidoChanged || submitAttempt)">
+              <p>Solo ingrese letras</p>
+            </ion-item>
+            <ion-item>
+              <ion-input #calle formControlName="calle" type="text" (change)="elementChanged(calle)"
+                placeholder="Calle" [class.invalid]="!UsuariosForm.controls.calle.valid && (calleChanged || submitAttempt)"></ion-input>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="UsuariosForm.controls['calle'].hasError('required')   && (calleChanged || submitAttempt)">
+              <p>Este campo no puede estar vacío</p>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="UsuariosForm.controls['calle'].hasError('pattern')  && (calleChanged || submitAttempt)">
+              <p>Solo letras y/o numeros</p>
+            </ion-item>
+            <ion-item>
+              <ion-input #altura formControlName="altura" type="text" (change)="elementChanged(altura)"
+                placeholder="Altura" [class.invalid]="!UsuariosForm.controls.altura.valid && (alturaChanged || submitAttempt)"></ion-input>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="!UsuariosForm.controls.altura.valid  && (alturaChanged || submitAttempt)">
+              <p>Este campo solo admite numeros</p>
+            </ion-item>
+            <ion-item>              
+              <ion-input #email formControlName="email" type="email" (change)="elementChanged(email)" (keyup)="verificarEmail(email.value)"
+               placeholder="Correo Electrónico" [class.error]="validarEmail"></ion-input>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="!UsuariosForm.controls.email.valid  && (emailChanged || submitAttempt)">
+              <p>Correo Electronico Inválido</p>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="validarEmail">
+              <p>Ese Correo Electronico ya existe</p>
+            </ion-item>
+            <ion-item>
+              <ion-input #password [(ngModel)]="valuePass" formControlName="password" type="password" (change)="elementChanged(password)" (keyup)="compararPass()"
+               placeholder="Contraseña" [class.error]="!validarContra  && passwordChanged && vpChanged"></ion-input>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="!UsuariosForm.controls.password.valid  && (passwordChanged || submitAttempt)">
+              <p>Tu Contraseña debe tener 6 o mas caracteres</p>
+            </ion-item>
+            <ion-item>
+              <ion-input #vp [(ngModel)]="valuePassDos" formControlName="vp" type="password" (change)="elementChanged(vp)" (keyup)="compararPass()"
+               placeholder="Reingresar Contraseña" [class.error]="!validarContra  && passwordChanged && vpChanged"></ion-input>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="!UsuariosForm.controls.vp.valid  && (passwordChanged || submitAttempt)">
+              <p>Tu Contraseña debe tener 6 o mas caracteres</p>
+            </ion-item>
+
+            <ion-item class="error-message" *ngIf="!validarContra && passwordChanged && vpChanged">
+              <p>LAS CONTRASEÑAS NO COINCIDEN</p>
+            </ion-item>
+            <button ion-button block class="btnAlta" type="submit">
+              Agregar Administrativo
+            </button>
+          </form>
+          <button ion-button block class="btnAlta" (click)="mostrarSeleccion=true;mostrarFormAdministrativo=false">
+             Cancelar
+            </button>
+      </ion-card-content>
+    </ion-card>   
+
+<!-- ----------------------ALTA PROFESOR------------------------------------- -->
+
+<ion-card *ngIf="mostrarFormProfesor"> 
+      <ion-card-header>Alta Profesor</ion-card-header>
+      <ion-card-content>
+          <form [formGroup]="UsuariosForm" (submit)="AltaProfesor()" novalidate>
+            <ion-item>
+              <ion-input #legajo maxlength="4" formControlName="legajo" type="text" (change)="elementChanged(legajo)" (keyup)="verificarLegajo(legajo.value)"
+                placeholder="Legajo" [class.error]="validarlegajo"></ion-input>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="validarlegajo">
+              <p>Ese legajo ya existe</p>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="!UsuariosForm.controls.legajo.valid  && (legajoChanged || submitAttempt)">
+              <p>El legajo debe tener 3 digitos como minimo y solo admite numeros</p>
+            </ion-item>
+            <ion-item>
+              <ion-input #nombre formControlName="nombre" type="text" (change)="elementChanged(nombre)"
+                placeholder="Nombre" [class.invalid]="!UsuariosForm.controls.nombre.valid && (nombreChanged || submitAttempt)"></ion-input>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="UsuariosForm.controls['nombre'].hasError('required')  && (nombreChanged || submitAttempt)">
+              <p>Tu nombre no puede estar vacío</p>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="UsuariosForm.controls['nombre'].hasError('pattern')  && (nombreChanged || submitAttempt)">
+              <p>Solo ingrese letras</p>
+            </ion-item>
+            <ion-item>
+              <ion-input #apellido formControlName="apellido" type="text" (change)="elementChanged(apellido)"
+                placeholder="Apellido" [class.invalid]="!UsuariosForm.controls.apellido.valid && (apellidoChanged || submitAttempt)"></ion-input>
+            </ion-item>
+           <ion-item class="error-message" *ngIf="UsuariosForm.controls['apellido'].hasError('required')  && (apellidoChanged || submitAttempt)">
+              <p>Tu Apellido no puede estar vacío</p>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="UsuariosForm.controls['apellido'].hasError('pattern')  && (apellidoChanged || submitAttempt)">
+              <p>Solo ingrese letras</p>
+            </ion-item>
+            <ion-item>
+              <ion-input #calle formControlName="calle" type="text" (change)="elementChanged(calle)"
+                placeholder="Calle" [class.invalid]="!UsuariosForm.controls.calle.valid && (calleChanged || submitAttempt)"></ion-input>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="UsuariosForm.controls['calle'].hasError('required')   && (calleChanged || submitAttempt)">
+              <p>Este campo no puede estar vacío</p>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="UsuariosForm.controls['calle'].hasError('pattern')  && (calleChanged || submitAttempt)">
+              <p>Solo letras y/o numeros</p>
+            </ion-item>
+            <ion-item>
+              <ion-input #altura formControlName="altura" type="text" (change)="elementChanged(altura)"
+                placeholder="Altura" [class.invalid]="!UsuariosForm.controls.altura.valid && (alturaChanged || submitAttempt)"></ion-input>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="!UsuariosForm.controls.altura.valid  && (alturaChanged || submitAttempt)">
+              <p>Este campo solo admite numeros</p>
+            </ion-item>
+            <ion-item>              
+              <ion-input #email formControlName="email" type="email" (change)="elementChanged(email)" (keyup)="verificarEmail(email.value)"
+               placeholder="Correo Electrónico" [class.error]="validarEmail"></ion-input>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="!UsuariosForm.controls.email.valid  && (emailChanged || submitAttempt)">
+              <p>Correo Electronico Inválido</p>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="validarEmail">
+              <p>Ese Correo Electronico ya existe</p>
+            </ion-item>
+            <ion-item>
+              <ion-input #password [(ngModel)]="valuePass" formControlName="password" type="password" (change)="elementChanged(password)" (keyup)="compararPass()"
+               placeholder="Contraseña" [class.error]="!validarContra  && passwordChanged && vpChanged"></ion-input>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="!UsuariosForm.controls.password.valid  && (passwordChanged || submitAttempt)">
+              <p>Tu Contraseña debe tener 6 o mas caracteres</p>
+            </ion-item>
+            <ion-item>
+              <ion-input #vp [(ngModel)]="valuePassDos" formControlName="vp" type="password" (change)="elementChanged(vp)" (keyup)="compararPass()"
+               placeholder="Reingresar Contraseña" [class.error]="!validarContra  && passwordChanged && vpChanged"></ion-input>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="!UsuariosForm.controls.vp.valid  && (passwordChanged || submitAttempt)">
+              <p>Tu Contraseña debe tener 6 o mas caracteres</p>
+            </ion-item>
+
+            <ion-item class="error-message" *ngIf="!validarContra && passwordChanged && vpChanged">
+              <p>LAS CONTRASEÑAS NO COINCIDEN</p>
+            </ion-item>
+            <button ion-button block class="btnAlta" type="submit">
+              Agregar Profesor
+            </button>
+          </form>
+           <button ion-button block class="btnAlta" (click)="mostrarSeleccion=true;mostrarFormProfesor=false">
+             Cancelar
+            </button>
+      </ion-card-content>
+    </ion-card>    
+
+<!-- ----------------------ALTA ALUMNO------------------------------- -->
+
+<ion-card *ngIf="mostrarFormAlumno"> 
+      <ion-card-header>Alta Alumno</ion-card-header>
+      <ion-card-content>
+          <form [formGroup]="UsuariosForm" (submit)="AltaAlumno()" novalidate>
+            <ion-item>
+              <ion-input #legajo maxlength="4" formControlName="legajo" type="text" (change)="elementChanged(legajo)" (keyup)="verificarLegajo(legajo.value)"
+                placeholder="Legajo" [class.error]="validarlegajo"></ion-input>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="validarlegajo">
+              <p>Ese legajo ya existe</p>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="!UsuariosForm.controls.legajo.valid  && (legajoChanged || submitAttempt)">
+              <p>El legajo debe tener 3 digitos como minimo y solo admite numeros</p>
+            </ion-item>
+            <ion-item>
+              <ion-input #nombre formControlName="nombre" type="text" (change)="elementChanged(nombre)"
+                placeholder="Nombre" [class.invalid]="!UsuariosForm.controls.nombre.valid && (nombreChanged || submitAttempt)"></ion-input>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="UsuariosForm.controls['nombre'].hasError('required')  && (nombreChanged || submitAttempt)">
+              <p>Tu nombre no puede estar vacío</p>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="UsuariosForm.controls['nombre'].hasError('pattern')  && (nombreChanged || submitAttempt)">
+              <p>Solo ingrese letras</p>
+            </ion-item>
+            <ion-item>
+              <ion-input #apellido formControlName="apellido" type="text" (change)="elementChanged(apellido)"
+                placeholder="Apellido" [class.invalid]="!UsuariosForm.controls.apellido.valid && (apellidoChanged || submitAttempt)"></ion-input>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="UsuariosForm.controls['apellido'].hasError('required')  && (apellidoChanged || submitAttempt)">
+              <p>Tu Apellido no puede estar vacío</p>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="UsuariosForm.controls['apellido'].hasError('pattern')  && (apellidoChanged || submitAttempt)">
+              <p>Solo ingrese letras</p>
+            </ion-item>
+            <ion-item>
+              <ion-input #calle formControlName="calle" type="text" (change)="elementChanged(calle)"
+                placeholder="Calle" [class.invalid]="!UsuariosForm.controls.calle.valid && (calleChanged || submitAttempt)"></ion-input>
+            </ion-item>
+             <ion-item class="error-message" *ngIf="UsuariosForm.controls['calle'].hasError('required')   && (calleChanged || submitAttempt)">
+              <p>Este campo no puede estar vacío</p>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="UsuariosForm.controls['calle'].hasError('pattern')  && (calleChanged || submitAttempt)">
+              <p>Solo letras y/o numeros</p>
+            </ion-item>
+            <ion-item>
+              <ion-input #altura formControlName="altura" type="text" (change)="elementChanged(altura)"
+                placeholder="Altura" [class.invalid]="!UsuariosForm.controls.altura.valid && (alturaChanged || submitAttempt)"></ion-input>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="!UsuariosForm.controls.altura.valid  && (alturaChanged || submitAttempt)">
+              <p>Este campo solo admite numeros</p>
+            </ion-item>
+            <ion-item>              
+              <ion-input #email formControlName="email" type="email" (change)="elementChanged(email)" (keyup)="verificarEmail(email.value)"
+               placeholder="Correo Electrónico"  [class.error]="validarEmail"></ion-input>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="!UsuariosForm.controls.email.valid  && (emailChanged || submitAttempt)">
+              <p>Correo Electronico Inválido</p>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="validarEmail">
+              <p>Ese Correo Electronico ya existe</p>
+            </ion-item>
+            <ion-item>
+              <ion-input #password [(ngModel)]="valuePass" formControlName="password" type="password" (change)="elementChanged(password)" (keyup)="compararPass()"
+               placeholder="Contraseña" [class.error]="!validarContra  && passwordChanged && vpChanged"></ion-input>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="!UsuariosForm.controls.password.valid  && (passwordChanged || submitAttempt)">
+              <p>Tu Contraseña debe tener 6 o mas caracteres</p>
+            </ion-item>
+            <ion-item>
+              <ion-input #vp [(ngModel)]="valuePassDos" formControlName="vp" type="password" (change)="elementChanged(vp)" (keyup)="compararPass()"
+               placeholder="Reingresar Contraseña" [class.error]="!validarContra  && passwordChanged && vpChanged"></ion-input>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="!UsuariosForm.controls.vp.valid  && (passwordChanged || submitAttempt)">
+              <p>Tu Contraseña debe tener 6 o mas caracteres</p>
+            </ion-item>
+
+            <ion-item class="error-message" *ngIf="!validarContra && passwordChanged && vpChanged">
+              <p>LAS CONTRASEÑAS NO COINCIDEN</p>
+            </ion-item>
+            <button ion-button block class="btnAlta" type="submit">
+              Agregar Alumno
+            </button>
+          </form>
+          <button ion-button block class="btnAlta" (click)="mostrarSeleccion=true;mostrarFormAlumno=false">
+             Cancelar
+            </button>
+      </ion-card-content>
+    </ion-card>
+
+<!-- ----------------------ALTA MATERIA------------------------------- -->
+            
+<ion-card *ngIf="mostrarFormMateria"> 
+      <ion-card-header>Alta Materia</ion-card-header>
+      <ion-card-content>
+          <form [formGroup]="MDForm" (submit)="AltaMateria()" novalidate>
+            <ion-item>
+            <ion-input #descripcion formControlName="descripcion" type="text" (change)="elementChanged(descripcion)" (blur)="verificarMateria(descripcion.value)"
+                placeholder="Descripción" [class.error]="validarMateria"></ion-input>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="MDForm.controls['descripcion'].hasError('pattern') && (descripcionChanged || submitAttempt)">
+              <p>Solo ingrese letras</p>
+            </ion-item>
+             <ion-item class="error-message" *ngIf="MDForm.controls['descripcion'].hasError('required') && descripcionChanged">
+              <p>Tu nombre no puede estar vacío</p>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="validarMateria">
+              <p>Esa materia ya fue ingresada</p>
+            </ion-item>            
+            <ion-item>
+              <ion-label>Cuatrimestre</ion-label>
+              <ion-select formControlName="cuatrimestre" okText="Seleccionar" cancelText="Cancelar">
+                <ion-option selected>Seleccionar</ion-option>
+                <ion-option value="1">1</ion-option>
+                <ion-option value="2">2</ion-option>
+                <ion-option value="3">3</ion-option>
+                <ion-option value="4">4</ion-option>
+              </ion-select>
+            </ion-item>  
+            <button ion-button block class="btnAlta" type="submit">
+              Agregar Materia
+            </button>
+          </form>
+         <button ion-button block class="btnAlta" (click)="mostrarSeleccion=true;mostrarFormMateria=false">
+             Cancelar
+          </button>
+      </ion-card-content>
+    </ion-card>   
+
+<!-- ----------------------ALTA DIVISION------------------------------- -->
+
+<ion-card *ngIf="mostrarFormDivision"> 
+      <ion-card-header>Alta Division</ion-card-header>
+      <ion-card-content>
+          <form [formGroup]="DForm" (submit)="AltaDivision()" novalidate>
+            <ion-item>
+              <ion-input #descripcion maxlength="2" formControlName="descripcion" type="text" (change)="elementChanged(descripcion)" (blur)="verificarDivision(descripcion.value)"
+                placeholder="Descripción" [class.error]="validarDivision"></ion-input>
+            </ion-item>
+            <ion-item >
+              <p style="word-wrap: break-word;">Ejemplo 1B</p>
+            </ion-item>
+            <ion-item class="error-message" *ngIf="validarDivision">
+              <p>Esa Division ya fue ingresada</p>
+            </ion-item>            
+            <ion-item>
+              <ion-label>Cuatrimestre</ion-label>
+              <ion-select formControlName="cuatrimestre" okText="Seleccionar" cancelText="Cancelar">
+                <ion-option selected>Seleccionar</ion-option>
+                <ion-option value="1">1</ion-option>
+                <ion-option value="2">2</ion-option>
+                <ion-option value="3">3</ion-option>
+                <ion-option value="4">4</ion-option>
+              </ion-select>
+            </ion-item>  
+            <button ion-button block class="btnAlta" type="submit">
+              Agregar Division
+            </button>
+          </form>
+          <button ion-button block class="btnAlta" (click)="mostrarSeleccion=true;mostrarFormDivision=false">
+             Cancelar
+          </button>
+      </ion-card-content>
+    </ion-card>   
+<!-- ----------------------ALTA COMISION------------------------------- -->
+
+<ion-card *ngIf="mostrarFormComision"> 
+      <ion-card-header>Alta Comision</ion-card-header>
+      <ion-card-content>
+          <form [formGroup]="ComisionForm" (submit)="AltaComision()" novalidate>  
+            <ion-item>
+              <ion-label>Materia</ion-label>
+              <ion-select formControlName="materia" okText="Seleccionar" cancelText="Cancelar">
+                <ion-option (ionSelect)="traerdivisiones('Seleccionar')" selected>Seleccionar</ion-option>
+                <div *ngFor="let materia of materias">
+                  <ion-option (ionSelect)="traerdivisiones(materia.cuatrimestre)" value="{{materia.id_materia}}">{{materia.descripcion}}</ion-option>
+                </div>
+              </ion-select>
+            </ion-item>
+             <ion-item>
+              <ion-label>Division</ion-label>
+              <ion-select formControlName="division" okText="Seleccionar" cancelText="Cancelar">
+                <ion-option selected>Seleccionar</ion-option>
+                <div *ngFor="let division of divisiones">
+                  <ion-option value="{{division.id_division}}">{{division.descripcion}}</ion-option>
+                </div>
+              </ion-select>
+            </ion-item>            
+             <ion-item>
+              <ion-label>Aula</ion-label>
+              <ion-select formControlName="aula" okText="Seleccionar" cancelText="Cancelar">
+                <ion-option selected>Seleccionar</ion-option>
+                <ion-option value="300">300</ion-option>
+                <ion-option value="301">301</ion-option>
+                <ion-option value="302">302</ion-option>
+                <ion-option value="303">303</ion-option>
+                <ion-option value="304">304</ion-option>
+                <ion-option value="305">305</ion-option>
+                <ion-option value="306">306</ion-option>
+                <ion-option value="307">307</ion-option>
+                <ion-option value="308">308</ion-option>
+                <ion-option value="309">309</ion-option>
+                <ion-option value="310">310</ion-option>
+              </ion-select>
+            </ion-item>  
+            <ion-item>
+              <ion-label>Día</ion-label>
+              <ion-select formControlName="dia" okText="Seleccionar" cancelText="Cancelar">
+                <ion-option selected>Seleccionar</ion-option>
+                <ion-option value="Lunes">Lunes</ion-option>
+                <ion-option value="Martes">Martes</ion-option>
+                <ion-option value="Miercoles">Miercoles</ion-option>
+                <ion-option value="Jueves">Jueves</ion-option>
+                <ion-option value="Viernes">Viernes</ion-option>
+                <ion-option value="Sabado">Sabado</ion-option>
+              </ion-select>
+            </ion-item>  
+            <ion-item>
+              <ion-label>Turno</ion-label>
+              <ion-select formControlName="turno" okText="Seleccionar" cancelText="Cancelar">
+                <ion-option selected>Seleccionar</ion-option>
+                <ion-option value="Mañana">Mañana</ion-option>
+                <ion-option value="Tarde">Tarde</ion-option>
+              </ion-select>
+            </ion-item>  
+            <button ion-button block class="btnAlta" type="submit">
+              Agregar Comision
+            </button>
+          </form>
+          <button ion-button block class="btnAlta" (click)="mostrarSeleccion=true;mostrarFormComision=false">
+             Cancelar
+            </button>
+      </ion-card-content>
+    </ion-card>
+
+</ion-content>

@@ -1,0 +1,12 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon *ngIf="obtenerIdioma()" name="menu"></ion-icon>
+    </button>
+    <ion-title>{{titulo[0][idioma]}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  {{arrayIdiomas[0][idioma]}} <br>
+</ion-content>

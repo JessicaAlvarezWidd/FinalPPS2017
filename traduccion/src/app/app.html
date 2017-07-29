@@ -1,0 +1,33 @@
+<ion-menu [content]="content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>{{pageTitulos[2][idiomaGeneral]}}</ion-title> 
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      <div>
+        <ion-select menuClose (ionChange)="cambiarIdioma($event)">          
+          <ion-option value="EN" >English</ion-option>
+          <ion-option value="ES" selected="true">Español</ion-option>
+          <ion-option value="PT">Português</ion-option>
+          <ion-option value="IT">Italiano</ion-option>
+          <ion-option value="DE">Deutsch</ion-option>
+          <ion-option value="FR">Français</ion-option>
+        </ion-select>
+      </div>
+      
+      <div>
+        <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+          {{p.title}}
+        </button></div>      
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+
+
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

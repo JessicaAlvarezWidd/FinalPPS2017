@@ -1,0 +1,66 @@
+page-encuesta {
+
+ ion-content {
+  
+    background-image: url(../assets/Imagenes/fondoapp.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    }
+
+    button[type=submit] {
+    background-color: steelblue;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 15px;
+    }
+
+    ion-card.card {
+		box-shadow: none;
+		background: rgba(154, 198, 201, 0.9);
+		border-radius: 5px;
+	}
+
+  a, p,
+	ion-card-header.card-header {
+		color: #fff!important;
+		font-size: 2 em;
+	}
+
+
+    .item {
+		margin-bottom: 10px;
+		background: rgba(60, 59, 59, 0.2);
+		border: medium none;
+		//height: 8px;
+		width: auto;
+		.text-input, {
+			color: #fff;
+		}
+
+		input::-moz-placeholder  {
+			color: #fff!important;
+		}
+
+		input:-moz-placeholder {
+			color: #fff!important;
+		}
+
+		*::-webkit-input-placeholder  {
+			color: #fff!important;
+		}
+
+		*:-ms-input-placeholder  {
+			color: #fff!important;
+		}
+
+		*:-moz-placeholder  {
+			color: #fff!important;
+		}
+	}
+
+}
